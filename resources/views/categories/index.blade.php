@@ -23,11 +23,12 @@
                             <td class="py-2 px-4 border-b">
                                 <a href="{{ route('categories.show', $item->id) }}" class="text-blue-500 hover:underline">Details</a>
                                 <a href="{{ route('categories.edit', ['id' => $item->id]) }}" class="text-yellow-500 hover:underline ml-2">Modifier</a>
-                                <form action="{{ route('categories.destroy', $item->id) }}" method="post" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" value="Supprimer" class="text-red-500 hover:underline ml-2 cursor-pointer bg-transparent border-none p-0">
-                                </form>
+                                <button 
+                                    onclick="deleteCategorie({{ $item->id }})"
+                                    class="text-red-500 hover:underline ml-2 cursor-pointer"
+                                >
+                                    Supprimer
+                                </button>
                             </td>
                         </tr>
                     @endforeach
@@ -35,4 +36,30 @@
             </table>
         @endif
     </div>
+
+    <script>
+    function deleteCategorie(id) {
+        if (!confirm('Are you sure you want to delete this category?')) return;
+
+        fetch(`/categories/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.querySelector(`button[onclick="deleteCategorie(${id})"]`)
+                    .closest('tr')
+                    .remove();
+            }
+        })
+        .catch(error => {
+            alert('Error deleting category');
+            console.error('Error:', error);
+        });
+    }
+    </script>
 </x-layout>
