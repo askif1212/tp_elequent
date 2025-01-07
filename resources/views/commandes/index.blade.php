@@ -48,4 +48,36 @@
             </tbody>
         </table>
     </div>
+    <script>
+        document.getElementById('etatFilter').addEventListener('change', function() {
+            const etat = this.value;
+
+            fetch(`/commandes/filter/${etat}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.querySelector('tbody');
+                    tbody.innerHTML = '';
+
+                    data.forEach(commande => {
+                        tbody.innerHTML += `
+                    <tr>
+                        <td class="py-2 px-4 border-b">${commande.id}</td>
+                        <td class="py-2 px-4 border-b">${commande.date}</td>
+                        <td class="py-2 px-4 border-b">${commande.created_at}</td>
+                        <td class="py-2 px-4 border-b">${commande.total == null ? 0 : commande.total}</td>
+                        <td class="py-2 px-4 border-b">${commande.client_id}</td>
+                        <td class="py-2 px-4 border-b">${commande.etat}</td>
+                        <td class="py-2 px-4 border-b"><a href="/commandes/${commande.id}" class="text-blue-500 hover:underline">Details</a></td>
+                        <td class="py-2 px-4 border-b"><a href="/commandes/${commande.id}/edit" class="text-yellow-500 hover:underline">Modifier</a></td>
+                        <td class="py-2 px-4 border-b">
+                            <button onclick="deleteElement(${commande.id}, 'commandes')" class="text-red-500 hover:underline cursor-pointer">
+                                Supprimer
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                    });
+                });
+        });
+    </script>
 </x-layout>
