@@ -10,7 +10,8 @@ class ProduitController extends Controller
     public function index()
     {
         $produits = Produit::all();
-        return view("produits.index", compact("produits"));
+        $allCategories = Produit::with('categorie')->get()->pluck('categorie')->unique();
+        return view("produits.index", compact("produits", "allCategories"));
     }
 
     public function show(string $id)
@@ -63,11 +64,26 @@ class ProduitController extends Controller
     {
         $produit = Produit::find($id);
         $produit->delete();
-        
-        if(request()->wantsJson()) {
+
+        if (request()->wantsJson()) {
             return response()->json(['success' => true]);
         }
-        
+
         return redirect()->route('produits.index')->with('success', 'Product deleted successfully');
+    }
+
+    public function filter($category = null)
+    {
+        $query = Produit::query();
+
+        if ($category === "all") {
+            $produits = $query->get();
+        } else if ($category) {
+            $produits = $query->where("categorie_id", $category);
+        }
+
+        $produits = $query->get();
+
+        return response()->json($produits);
     }
 }

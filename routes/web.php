@@ -40,3 +40,4 @@ Route::get("/produits/{id}",[ProduitController::class,"show"])->name("produits.s
 Route::get("/produits/{id}/edit",[ProduitController::class,"edit"])->name("produits.edit");
 Route::put("/produits/{id}",[ProduitController::class,"update"])->name("produits.update");
 Route::delete("/produits/{id}",[ProduitController::class,"destroy"])->name("produits.destroy");
+Route::get('/produits/filter/{category?}', [ProduitController::class, 'filter']);
