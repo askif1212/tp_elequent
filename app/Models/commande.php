@@ -9,7 +9,7 @@ class commande extends Model
 {
     /** @use HasFactory<\Database\Factories\CommandeFactory> */
     use HasFactory;
-    protected $fillable=['date','client_id'];
+    protected $fillable=['date','client_id',"etat"];
     public function client(){
         return $this->belongsTo(Client::class);
     }

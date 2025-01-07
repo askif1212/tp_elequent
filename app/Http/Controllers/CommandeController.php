@@ -53,6 +53,7 @@ class CommandeController extends Controller
 
         $commande->date = $request->input('date');
         $commande->client_id = $request->input('client_id');
+        $commande->etat = $request->input('etat');
         $commande->save();
 
         return redirect()->route('commandes.index')->with('success', 'Commande updated successfully');

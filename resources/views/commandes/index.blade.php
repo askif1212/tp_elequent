@@ -11,6 +11,7 @@
                     <th class="px-4 py-2 border">Created at</th>
                     <th class="px-4 py-2 border">Total</th>
                     <th class="px-4 py-2 border">Client_id</th>
+                    <th class="px-4 py-2 border">Etat</th>
                     <th class="px-4 py-2 border" colspan="3">Actions</th>
                 </tr>
             </thead>
@@ -22,6 +23,7 @@
                     <td class="px-4 py-2 border">{{$commande->created_at}}</td>
                     <td class="px-4 py-2 border">{{$commande->total == null ? 0 : $commande->total}}</td>
                     <td class="px-4 py-2 border">{{$commande->client_id}}</td>
+                    <td class="px-4 py-2 border">{{$commande->etat}}</td>
                     <td class="px-4 py-2 border"><a href="{{route("commandes.show",["id"=>$commande->id])}}" class="text-blue-500 hover:underline">Details</a></td>
                     <td class="px-4 py-2 border"><a href="{{route("commandes.edit",["id"=>$commande->id])}}" class="text-blue-500 hover:underline">Modifier</a></td>
                     <td class="px-4 py-2 border">
