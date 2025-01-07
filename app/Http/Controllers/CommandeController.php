@@ -70,4 +70,19 @@ class CommandeController extends Controller
         return redirect()->route('commandes.index')
             ->with('success', 'Commande deleted successfully');
     }
+
+    public function filter($etat = null)
+    {
+        $query = Commande::query();
+
+        if ($etat === "all") {
+            $commandes = $query->get();
+        } else if ($etat) {
+            $commandes = $query->where("etat", $etat);
+        }
+
+        $commandes = $query->get();
+
+        return response()->json($commandes);
+    }
 }

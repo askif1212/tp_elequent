@@ -39,8 +39,9 @@
                         <td class="py-2 px-4 border-b"><a href="{{ route('produits.edit', ['id' => $produit->id]) }}"
                                 class="text-yellow-500 hover:underline">Modifier</a></td>
                         <td class="py-2 px-4 border-b">
-                            <button onclick="deleteProduit({{ $produit->id }})"
-                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">
+                            <button onclick="deleteElement({{ $produit->id }},'produits')"
+                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                                id="deleteElement">
                                 Supprimer
                             </button>
                         </td>
@@ -50,31 +51,8 @@
         </table>
     </div>
     <script>
-        function deleteProduit(id) {
-            if (!confirm('Are you sure you want to delete this product?')) return;
-
-            fetch(`/produits/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.querySelector(`button[onclick="deleteProduit(${id})"]`)
-                            .closest('tr')
-                            .remove();
-                    }
-                })
-                .catch(error => {
-                    alert('Error deleting product');
-                    console.error('Error:', error);
-                });
-        }
         document.getElementById('categoryFilter').addEventListener('change', function() {
-            const categoryId = this.value ;
+            const categoryId = this.value;
 
             fetch(`/produits/filter/${categoryId}`)
                 .then(response => response.json())

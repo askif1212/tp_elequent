@@ -26,8 +26,9 @@
                     <td class="py-2 px-4 border-b"><a href="{{route("clients.edit",["id"=>$client->id])}}" class="text-blue-500 hover:underline">Modifier</a></td>
                     <td class="px-4 py-2 border">
                         <button 
-                            onclick="deleteClient({{ $client->id }})"
+                            onclick="deleteElement({{ $client->id }},'clients')"
                             class="text-red-500 hover:underline cursor-pointer"
+                            id="deleteElement"
                         >
                             Supprimer
                         </button>
@@ -37,29 +38,4 @@
             </tbody>
         </table>
     </div>
-    <script>
-        function deleteClient(id) {
-            if (!confirm('Are you sure you want to delete this client?')) return;
-
-            fetch(`/clients/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.querySelector(`button[onclick="deleteClient(${id})"]`)
-                        .closest('tr')
-                        .remove();
-                }
-            })
-            .catch(error => {
-                alert('Error deleting client');
-                console.error('Error:', error);
-            });
-        }
-    </script>
 </x-layout>

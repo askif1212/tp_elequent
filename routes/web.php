@@ -32,6 +32,7 @@ Route::get("/commandes/{id}",[CommandeController::class,"show"])->name("commande
 Route::get("/commandes/{id}/edit",[CommandeController::class,"edit"])->name("commandes.edit");
 Route::put("/commandes/{id}",[CommandeController::class,"update"])->name("commandes.update");
 Route::delete("/commandes/{id}",[CommandeController::class,"destroy"])->name("commandes.destroy");
+Route::get('/commandes/filter/{etat?}', [CommandeController::class, 'filter']);
 
 Route::get('/produits',[ProduitController::class,"index"])->name("produits.index");
 Route::get("/produits/create",[ProduitController::class,"create"])->name("produits.create");
