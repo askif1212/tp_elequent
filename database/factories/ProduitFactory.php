@@ -17,12 +17,14 @@ class ProduitFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->text(10);
         return [
-            'name'=>fake()->text(20),
-            'description'=>fake()->text(100),
-            'price'=>fake()->randomFloat(2,0.5,10000),
-            'stock'=>fake()->numberBetween(0,100),
-            'categorie_id'=>Categorie::inRandomOrder()->first()->id,
+            'name' => $name,
+            'description' => fake()->text(100),
+            'price' => fake()->randomFloat(2, 0.5, 10000),
+            'stock' => fake()->numberBetween(0, 100),
+            'categorie_id' => Categorie::inRandomOrder()->first()->id,
+            'image' => "https://placehold.co/100x100?text={$name}",
         ];
     }
 }
