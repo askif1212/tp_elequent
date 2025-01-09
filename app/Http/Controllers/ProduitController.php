@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produit;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class ProduitController extends Controller
@@ -27,15 +28,19 @@ class ProduitController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
             'categorie_id' => 'required|integer',
-            'description' => 'required'
+            'description' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-
-        Produit::create($request->all());
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('produits/images', 'public');
+            $validatedData['image'] = $imagePath;
+        }
+        Produit::create($validatedData);
         return redirect()->route('produits.index')->with('success', 'Product created successfully');
     }
 
@@ -47,16 +52,20 @@ class ProduitController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
             'categorie_id' => 'required|integer',
-            'description' => 'required'
+            'description' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products/images', 'public');
+            $validatedData['image'] = $imagePath;
+        }
         $produit = Produit::find($id);
-        $produit->update($request->all());
+        $produit->update($validatedData);
         return redirect()->route('produits.index')->with('success', 'Product updated successfully');
     }
 

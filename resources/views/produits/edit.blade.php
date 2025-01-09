@@ -32,6 +32,10 @@
                 <input type="number" name="categorie_id" value="{{ $produit->categorie_id }}" required class="w-full p-2 border border-gray-300 rounded mt-1">
             </div>
             <div class="mb-4">
+                <label class="block text-gray-700">Image</label>
+                <input type="file" name="image" value="{{ old('image') }}" required class="w-full p-2 border border-gray-300 rounded mt-1">
+            </div>
+            <div class="mb-4">
                 <label class="block text-gray-700">Description:</label>
                 <textarea name="description" required class="w-full p-2 border border-gray-300 rounded mt-1">{{ $produit->description }}</textarea>
             </div>

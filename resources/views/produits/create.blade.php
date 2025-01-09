@@ -12,7 +12,7 @@
         </div>
     @endif
 
-    <form action="{{ route('produits.store') }}" method="POST">
+    <form action="{{ route('produits.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-4">
             <label class="block text-gray-700">Name:</label>
@@ -29,6 +29,10 @@
         <div class="mb-4">
             <label class="block text-gray-700">Category ID:</label>
             <input type="number" name="categorie_id" value="{{ old('categorie_id') }}" required class="w-full p-2 border border-gray-300 rounded mt-1">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Image</label>
+            <input type="file" name="image" value="{{ old('image') }}" required class="w-full p-2 border border-gray-300 rounded mt-1">
         </div>
         <div class="mb-4">
             <label class="block text-gray-700">Description:</label>
