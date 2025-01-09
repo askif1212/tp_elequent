@@ -24,7 +24,7 @@ class ProduitFactory extends Factory
             'price' => fake()->randomFloat(2, 0.5, 10000),
             'stock' => fake()->numberBetween(0, 100),
             'categorie_id' => Categorie::inRandomOrder()->first()->id,
-            'image' => "https://placehold.co/100x100?text={$name}",
+            'image' => "https://placehold.co/100x100?text={urlencode($name)}",
         ];
     }
 }
