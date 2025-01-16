@@ -21,9 +21,7 @@
     </nav>
     <div class="fixed bottom-4 right-4">
         <button id="cartButton" class="bg-blue-500 text-white p-2 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.4 5M17 13l1.4 5M6 21h12M6 21a2 2 0 11-4 0M18 21a2 2 0 11-4 0" />
-            </svg>
+            Panier
         </button>
         <div id="cartList" class="hidden bg-white shadow-lg rounded-lg p-4 mt-2">
             <h2 class="text-lg font-bold mb-2">Panier</h2>
@@ -74,9 +72,36 @@
                     for (const id in data) {
                         const item = data[id];
                         const li = document.createElement('li');
-                        li.textContent = `${item.nom} - Quantité: ${item.quantite} - Prix: ${item.prix}€`;
+                        li.classList.add('flex', 'justify-between', 'items-center', 'mb-2');
+                        li.innerHTML = `
+                            <span>${item.nom} - Quantité: ${item.quantite} - Prix: ${item.prix}€</span>
+                            <button class="delete-item bg-red-500 text-white p-1 rounded-full" data-id="${item.id}">
+                                &#10005;
+                            </button>
+                        `;
                         cartItems.appendChild(li);
                     }
+
+                    document.querySelectorAll('.delete-item').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const itemId = this.getAttribute('data-id');
+                            fetch(`/deleteFromCart/${itemId}`, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'X-CSRF-TOKEN': document.querySelector(
+                                            'meta[name="csrf-token"]').content,
+                                        'Accept': 'application/json'
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        this.closest('li').remove();
+                                    }
+                                })
+                                .catch(error => console.error('Erreur:', error));
+                        });
+                    });
                 })
                 .catch(error => console.error('Erreur:', error));
         }

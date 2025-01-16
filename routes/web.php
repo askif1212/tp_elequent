@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[HomeController::class,"index"])->name("index");
 Route::post('/add-to-cart/{id}', [HomeController::class, 'addToCart'])->name('add.to.cart');
 Route::get('/showCart', [HomeController::class, 'showCart']);
+Route::get('/showCart', [HomeController::class, 'showCart']);
+Route::delete('/deleteFromCart', [HomeController::class, 'deleteFromCart']);
 
 Route::get('/categories',[CategorieController::class,"index"])->name("categories.index");
 Route::get("/categories/create",[CategorieController::class,"create"])->name("categories.create");

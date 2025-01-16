@@ -26,6 +26,7 @@ class HomeController extends Controller
             $panier[$id]['quantite']++;
         } else {
             $panier[$id] = [
+                "id" => $id,
                 "nom" => $produit->name,
                 "quantite" => 1,
                 "prix" => $produit->price,
@@ -42,5 +43,18 @@ class HomeController extends Controller
     {
         $panier = session()->get('panier', []);
         return response()->json($panier);
+    }
+
+    public function deleteFromCart($id)
+    {
+        $panier = session()->get('panier', []);
+
+        if (isset($panier[$id])) {
+            unset($panier[$id]);
+            session()->put('panier', $panier);
+            return response()->json(['message' => 'Produit supprimé du panier.'], 200);
+        }
+
+        return response()->json(['error' => 'Produit non trouvé dans le panier.'], 404);
     }
 }
