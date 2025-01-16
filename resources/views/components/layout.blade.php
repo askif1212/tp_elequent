@@ -41,33 +41,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- <tr class=" border-y border-slate-400">
-                                <td class=" text-center">
-                                    <div class=" w-[50px]">
-                                        <img src="https://placehold.co/50x50?text=product" alt=""
-                                            width="50px">
-                                    </div>
-                                </td>
-                                <td class=" text-center">
-                                    Meat salad
-                                </td>
-                                <td class=" text-center">
-                                    $7
-                                </td>
-                                <td class=" text-center">
-                                    4
-                                </td>
-                                <td class=" text-center">
-                                    <div
-                                        class="bg-red-500 cursor-pointer rounded-full w-[calc(24px + 0.5rem)] h-[calc(24px + 0.5rem)] p-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
-                                            width="24px" fill="#fff">
-                                            <path
-                                                d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                        </svg>
-                                    </div>
-                                </td>
-                            </tr> --}}
                         </tbody>
                     </table>
                 </div>
@@ -172,55 +145,6 @@
                 console.error('Error:', error);
             });
     }
-    // document.getElementById('cartButton').addEventListener('click', function() {
-    //     const cartList = document.getElementById('cartList');
-    //     cartList.classList.toggle('hidden');
-
-    // if (!cartList.classList.contains('hidden')) {
-    //     fetch('/showCart')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             console.log(data)
-    //             const cartItems = document.getElementById('cartItems');
-    //             cartItems.innerHTML = '';
-
-    //             for (const id in data) {
-    //                 const item = data[id];
-    //                 const li = document.createElement('li');
-    //                 li.classList.add('flex', 'justify-between', 'items-center', 'mb-2');
-    //                 li.innerHTML = `
-    //                     <span>${item.nom} - Quantité: ${item.quantite} - Prix: ${item.prix}€</span>
-    //                     <button class="delete-item bg-red-500 text-white p-1 rounded-full" data-id="${item.id}">
-    //                         &#10005;
-    //                     </button>
-    //                 `;
-    //                 cartItems.appendChild(li);
-    //             }
-
-    //             document.querySelectorAll('.delete-item').forEach(button => {
-    //                 button.addEventListener('click', function() {
-    //                     const itemId = this.getAttribute('data-id');
-    //                     fetch(`/deleteFromCart/${itemId}`, {
-    //                             method: 'DELETE',
-    //                             headers: {
-    //                                 'X-CSRF-TOKEN': document.querySelector(
-    //                                     'meta[name="csrf-token"]').content,
-    //                                 'Accept': 'application/json'
-    //                             }
-    //                         })
-    //                         .then(response => response.json())
-    //                         .then(data => {
-    //                             if (data.success) {
-    //                                 this.closest('li').remove();
-    //                             }
-    //                         })
-    //                         .catch(error => console.error('Erreur:', error));
-    //                 });
-    //             });
-    //         })
-    //         .catch(error => console.error('Erreur:', error));
-    // }
-    // });
 </script>
 
 </html>
