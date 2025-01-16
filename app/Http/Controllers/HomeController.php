@@ -52,7 +52,7 @@ class HomeController extends Controller
         if (isset($panier[$id])) {
             unset($panier[$id]);
             session()->put('panier', $panier);
-            return response()->json(['message' => 'Produit supprimé du panier.'], 200);
+            return response()->json(['message' => 'Produit supprimé du panier.',"success" => true], 200);
         }
 
         return response()->json(['error' => 'Produit non trouvé dans le panier.'], 404);
